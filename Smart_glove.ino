@@ -18,12 +18,11 @@ void setup() {
   pinMode(flex02, INPUT);
   pinMode(stopButton, INPUT);
 
-  // Inicializa o MPU6050
   byte status = mpu.begin();
   Serial.print("Status do MPU6050: ");
   Serial.println(status);
 
-  while (status != 0) { } // Trava se houver erro de conexão
+  while (status != 0) { }
 
   Serial.println("Calibrando o sensor... DEIXE O MPU6050 PARADO NA HORIZONTAL");
   delay(2000);
@@ -32,17 +31,14 @@ void setup() {
 }
 
 void loop() {
-  mpu.update(); // CRUCIAL: Atualiza os cálculos internos do sensor
+  mpu.update();
 
-  // Lê os ângulos X e Y do MPU6050
   float x = mpu.getAngleX();
   float y = mpu.getAngleY();
 
-  // Lê os flex sensors
   valor01 = analogRead(flex01);
   valor02 = analogRead(flex02);
 
-  // Exibe no Monitor Serial
   Serial.print("X: ");
   Serial.print(x);
   Serial.print(" \t Y: ");
@@ -52,7 +48,7 @@ void loop() {
   Serial.print(" \t Flex2: ");
   Serial.println(valor02);
 
-  // Controle do teclado (só ativa se stopButton NÃO estiver pressionado)
+  // --- Código para os sensores de pressão ---
   if (digitalRead(stopButton) == LOW) {
 
     if (valor01 > 10) {
@@ -66,11 +62,11 @@ void loop() {
 
     // --- MPU6050 - Eixo X (inclinação para frente/trás) ---
     if (x > 30) {
-      Keyboard.write('w');   // inclinado para frente → pressiona W
+      Keyboard.write('w'); // inclinado para frente → pressiona W
       delay(100);
     }
     if (x < -30) {
-      Keyboard.write('s');   // inclinado para trás → pressiona S
+      Keyboard.write('s'); // inclinado para trás → pressiona S
       delay(100);
     }
 
