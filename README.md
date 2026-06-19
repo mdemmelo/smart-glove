@@ -14,3 +14,4 @@
 - Baixar e executar o código no software do Arduino;
 - Conectar a placa a um computador e verificar o código;
 - Fazer upload e se divertir!
+![circuito do arduino](./circuito.jpeg)
